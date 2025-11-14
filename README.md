@@ -165,3 +165,92 @@ Usaremos **GitHub Flow** (simple y ágil).
 6.  Crear **Pull Request (PR)** en GitHub apuntando a `main` y solicitar revisión.
 
 ---
+```
+keepup-api/
+├── .github/
+│   └── pull_request_template.md
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/keepup/
+│   │   │       ├── KeepupApplication.java
+│   │   │
+│   │   │       ├── core/                         # Configuración general y utilidades
+│   │   │       │   ├── config/                   # Configuraciones (CORS, Mail, etc.)
+│   │   │       │   │   ├── CorsConfig.java
+│   │   │       │   │   └── MailConfig.java
+│   │   │       │   ├── exception/                # Manejo global de excepciones
+│   │   │       │   │   ├── GlobalExceptionHandler.java
+│   │   │       │   │   └── ResourceNotFoundException.java
+│   │   │       │   └── security/                 # Seguridad y JWT
+│   │   │       │       ├── WebSecurityConfig.java
+│   │   │       │       ├── UserDetailsServiceImpl.java
+│   │   │       │       ├── JwtUtil.java
+│   │   │       │       └── JwtRequestFilter.java
+│   │   │
+│   │   │       ├── auth/                         # Módulo de Autenticación (SPRINT 1)
+│   │   │       │   ├── controller/
+│   │   │       │   │   └── AuthController.java
+│   │   │       │   ├── dto/
+│   │   │       │   │   ├── RegisterRequest.java
+│   │   │       │   │   ├── LoginRequest.java
+│   │   │       │   │   └── AuthResponse.java
+│   │   │       │   ├── entity/
+│   │   │       │   │   ├── User.java
+│   │   │       │   │   └── Role.java
+│   │   │       │   ├── repository/
+│   │   │       │   │   ├── UserRepository.java
+│   │   │       │   │   └── RoleRepository.java
+│   │   │       │   └── service/
+│   │   │       │       └── AuthService.java
+│   │   │
+│   │   │       ├── vehicle/                      # Módulo de Vehículos (SPRINT 1 y 2)
+│   │   │       │   ├── controller/
+│   │   │       │   │   ├── VehicleController.java
+│   │   │       │   │   ├── DocumentController.java
+│   │   │       │   │   └── ExpenseController.java
+│   │   │       │   ├── dto/
+│   │   │       │   │   ├── VehicleDTO.java
+│   │   │       │   │   ├── DocumentDTO.java
+│   │   │       │   │   └── ExpenseDTO.java
+│   │   │       │   ├── entity/
+│   │   │       │   │   ├── Vehicle.java
+│   │   │       │   │   ├── Document.java
+│   │   │       │   │   └── Expense.java
+│   │   │       │   ├── repository/
+│   │   │       │   │   ├── VehicleRepository.java
+│   │   │       │   │   ├── DocumentRepository.java
+│   │   │       │   │   └── ExpenseRepository.java
+│   │   │       │   └── service/
+│   │   │       │       ├── VehicleService.java
+│   │   │       │       ├── DocumentService.java
+│   │   │       │       └── ExpenseService.java
+│   │   │
+│   │   │       └── notification/                 # Módulo de Alertas (SPRINT 2)
+│   │   │           ├── controller/
+│   │   │           │   └── AlertController.java
+│   │   │           ├── entity/
+│   │   │           │   └── Alert.java
+│   │   │           ├── repository/
+│   │   │           │   └── AlertRepository.java
+│   │   │           └── service/
+│   │   │               ├── SchedulerService.java
+│   │   │               └── NotificationService.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties             # Configuración: BBDD, JWT, SendGrid, etc.
+│   │       └── db/
+│   │           └── migration/                     # (Opcional: Flyway/Liquibase)
+│
+│   └── test/
+│       └── java/
+│           └── com/keepup/
+│               ├── auth/service/
+│               │   └── AuthServiceTest.java
+│               └── vehicle/service/
+│                   ├── VehicleServiceTest.java
+│                   └── (...)
+│
+├── pom.xml
+
