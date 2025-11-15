@@ -157,12 +157,12 @@ Usaremos **GitHub Flow** (simple y ágil).
 * **Ejemplo:** `feature/FEAT-AUTH-01_registro-clientes`
 
 **Flujo:**
-1.  `git checkout main`
-2.  `git pull origin main` (Sincronizar)
+1.  `git checkout develop`
+2.  `git pull origin develop` (Sincronizar)
 3.  `git checkout -b feature/FEAT-01_mi-tarea` (Crear rama)
 4.  *(...trabajar y hacer commits...)`
 5.  `git push origin feature/FEAT-01_mi-tarea` (Subir)
-6.  Crear **Pull Request (PR)** en GitHub apuntando a `main` y solicitar revisión.
+6.  Crear **Pull Request (PR)** en GitHub apuntando a `develop` y solicitar revisión.
 
 ---
 ```
