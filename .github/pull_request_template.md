@@ -1,4 +1,5 @@
-## 📝 Descripción
+## 📝 Descripción de los cambios.
+
 RECUERDA hacer todo en INGLES como buena practica y ser muy claro y detallado al crear el PR
 
 *Relacionado con:* `[ID-del-Task-o-Feature]`
@@ -7,10 +8,12 @@ RECUERDA hacer todo en INGLES como buena practica y ser muy claro y detallado al
 
 ## 🧐 Tipo de Cambio
 
+MARCA con una X el recuadro de los cambios que hiciste.
+
 - [ ] 🐞 Bug fix (solución de un error)
 - [ ] ✨ Nueva feature (cambio que agrega funcionalidad)
 - [ ] 💥 Cambio disruptivo (fix o feature que causaría que la funcionalidad existente no funcione como se esperaba)
-- [ ] 🧹 Chore (mantenimiento, configuración, dependencias)
+- [x] 🧹 Chore (mantenimiento, configuración, dependencias)
 - [ ] 📖 Documentación
 
 ## ✅ Checklist de Verificación
