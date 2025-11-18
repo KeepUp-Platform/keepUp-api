@@ -6,11 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "app_users")
+@Table(name = "app_user") // Nombre correcto para Postgres
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class User implements UserDetails {
 
@@ -27,20 +28,28 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
+    // Relación Muchos Usuarios -> Un Rol
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    // Métodos de UserDetails (Spring Security)
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    // Métodos de Seguridad
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        // Obtenemos el nombre desde el objeto Role
+        return List.of(new SimpleGrantedAuthority(role.getName()));
     }
 
     @Override
-    public String getUsername() {
-        return email; // Usamos el email como usuario
-    }
-
+    public String getUsername() { return email; }
     @Override
     public boolean isAccountNonExpired() { return true; }
     @Override
