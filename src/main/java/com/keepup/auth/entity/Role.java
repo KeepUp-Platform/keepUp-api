@@ -1,4 +1,6 @@
 package com.keepup.auth.entity;
 
-public class Role {
+public enum Role {
+    ROLE_CLIENT,
+    ROLE_ADMIN
 }
