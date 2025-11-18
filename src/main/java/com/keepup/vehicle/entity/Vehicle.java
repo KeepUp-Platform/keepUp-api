@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "vehicles")
 public class Vehicle {
 
 
@@ -11,22 +13,22 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    //Placa del carro
     @Column(nullable = false, unique = true, length = 20)
-    private String placa;
+    private String licensePlate;
 
 
     //Marca del vehículo (ej: Toyota, Honda, Chevrolet)
     @Column(nullable = false, length = 50)
-    private String marca;
+    private String make;
 
     //Modelo del vehículo (ej: Corolla, Civic, Spark)
     @Column(nullable = false, length = 50)
-    private String modelo;
+    private String model;
 
     //Año de fabricación del vehículo
     @Column(nullable = false)
-    private Integer anio;
+    private Integer year;
 
     //Color del vehiculo
     @Column(length = 30)
