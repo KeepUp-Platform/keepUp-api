@@ -33,7 +33,6 @@ public class Vehicle {
     private String color;
 
 
-
     // Campo para la fecha de creación
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
