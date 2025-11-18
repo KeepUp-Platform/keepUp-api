@@ -28,14 +28,30 @@ public class Vehicle {
     @Column(nullable = false)
     private Integer anio;
 
-
+    //Color del vehiculo
     @Column(length = 30)
     private String color;
 
 
+
+    // Campo para la fecha de creación
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    // Campo para la fecha de última modificación
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    // Relación con la entidad User
+    @ManyToOne(fetch = FetchType.LAZY) // Se recomienda LAZY para ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+
+
     /**
-     * Método que se ejecuta automáticamente antes de persistir la entidad
-     * Establece la fecha de creación y actualización
+     * Metodo que se ejecuta automaticamente antes de persistir la entidad
+     * Establece la fecha de creación y actualizacion
      */
     @PrePersist
     protected void onCreate() {
@@ -44,8 +60,8 @@ public class Vehicle {
     }
 
     /**
-     * Método que se ejecuta automáticamente antes de actualizar la entidad
-     * Actualiza solo la fecha de última modificación
+     * Metodo que se ejecuta automaticamente antes de actualizar la entidad
+     * Actualiza solo la fecha de ultima modificación
      */
     @PreUpdate
     protected void onUpdate() {
