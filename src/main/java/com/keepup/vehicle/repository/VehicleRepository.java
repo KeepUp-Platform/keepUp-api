@@ -13,25 +13,25 @@ import java.util.Optional;
 public interface VehicleRepository extends JpaRepository<Vehicle,Long> {
 
     // Buscar vehículo por placa
-    Optional<Vehicle> findByLicensePlate(String placa);
+    Optional<Vehicle> findByLicensePlate(String licensePlate);
 
     // Buscar vehículos por usuario
     List<Vehicle> findByUserId(Long userId);
 
     // Buscar vehículos por marca
-    List<Vehicle> findByMake(String marca);
+    List<Vehicle> findByMake(String make);
 
     // Buscar vehículos por modelo
-    List<Vehicle> findByModel(String modelo);
+    List<Vehicle> findByModel(String model);
 
     // Buscar vehículos por año
-    List<Vehicle> findByYear(Integer anio);
+    List<Vehicle> findByYear(Integer year);
 
     // Buscar vehículos por marca y modelo
-    List<Vehicle> findByMakeAndModel(String marca, String modelo);
+    List<Vehicle> findByMakeAndModel(String licensePlate, String model);
 
     // Verificar si existe un vehículo con esa placa
-    boolean existsByLicensePlate(String placa);
+    boolean existsByLicensePlate(String licensePlate);
 
     // Buscar vehículos de un usuario ordenados por fecha de creación
     List<Vehicle> findByUserIdOrderByCreatedAtDesc(Long userId);
