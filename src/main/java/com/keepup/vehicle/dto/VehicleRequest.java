@@ -49,8 +49,6 @@ public class VehicleRequest {
     @Size(max = 30, message = "Color must not exceed 30 characters")
     private String color; // Color del vehículo (opcional)
 
-    // Validación: Campo obligatorio
-    @NotNull(message = "User ID is required")
     // Validación: Debe ser un número positivo
     @Positive(message = "User ID must be positive")
     private Long userId; // ID del usuario propietario del vehículo
