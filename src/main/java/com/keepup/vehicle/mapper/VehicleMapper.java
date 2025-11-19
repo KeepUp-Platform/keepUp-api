@@ -28,6 +28,7 @@ public class VehicleMapper {
                 .model(vehicle.getModel())
                 .year(vehicle.getYear())
                 .color(vehicle.getColor())
+                .vehicleType(vehicle.getVehicleType())
                 // Verifica que el usuario no sea null antes de acceder a sus propiedades
                 .userId(vehicle.getUser() != null ? vehicle.getUser().getId() : null)
                 .userEmail(vehicle.getUser() != null ? vehicle.getUser().getEmail() : null)
@@ -52,6 +53,7 @@ public class VehicleMapper {
                 .model(request.getModel())
                 .year(request.getYear())
                 .color(request.getColor())
+                .vehicleType(request.getVehicleType())
                 // No asignamos user aquí, se hace en el Service con userRepository
                 .build();
     }
@@ -71,6 +73,7 @@ public class VehicleMapper {
         vehicle.setModel(request.getModel());
         vehicle.setYear(request.getYear());
         vehicle.setColor(request.getColor());
+        vehicle.setVehicleType(request.getVehicleType());
         // No tocamos: id, user, createdAt (se mantienen)
         // updatedAt se actualiza automáticamente con @PreUpdate
     }

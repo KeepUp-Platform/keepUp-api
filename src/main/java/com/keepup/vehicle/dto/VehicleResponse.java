@@ -1,5 +1,6 @@
 package com.keepup.vehicle.dto;
 
+import com.keepup.vehicle.enums.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +36,9 @@ public class VehicleResponse {
 
     // Color del vehículo (puede ser null)
     private String color;
+
+    // Tipo de vehiculo
+    private VehicleType vehicleType;
 
     // ID del usuario propietario del vehículo
     private Long userId;

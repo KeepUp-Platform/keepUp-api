@@ -1,5 +1,6 @@
 package com.keepup.vehicle.dto;
 
+import com.keepup.vehicle.enums.VehicleType;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,6 +49,9 @@ public class VehicleRequest {
     // Validación: Campo opcional, pero si se envía, máximo 30 caracteres
     @Size(max = 30, message = "Color must not exceed 30 characters")
     private String color; // Color del vehículo (opcional)
+
+    @NotNull(message = "Vehicle type is required")
+    private VehicleType vehicleType;
 
     // Validación: Campo obligatorio
     @NotNull(message = "User ID is required")

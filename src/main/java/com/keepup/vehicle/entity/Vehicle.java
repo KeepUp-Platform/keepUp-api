@@ -2,6 +2,7 @@ package com.keepup.vehicle.entity;
 
 
 import com.keepup.auth.entity.User;
+import com.keepup.vehicle.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "vehicle")
 @Data
 @Builder
 @AllArgsConstructor
@@ -43,6 +44,10 @@ public class Vehicle {
     //Color del vehiculo
     @Column(length = 30)
     private String color;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private VehicleType vehicleType;
 
 
     // Campo para la fecha de creación
