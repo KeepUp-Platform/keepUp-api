@@ -40,14 +40,58 @@ public interface VehicleRepository extends JpaRepository<Vehicle,Long> {
     long countByUserId(Long userId);
 
     // Query personalizada: buscar vehículos por rango de años
-    @Query("SELECT v FROM Vehicles v WHERE v.year BETWEEN :yearStart AND :yearEnd")
+    @Query("SELECT v FROM Vehicle v WHERE v.year BETWEEN :yearStart AND :yearEnd")
     List<Vehicle> findByYearRange(@Param("yearStart") Integer yearStart,
                                   @Param("yearEnd") Integer yearEnd);
 
     // Query personalizada: buscar vehículos de un usuario por marca
-    @Query("SELECT v FROM Vehicles v WHERE v.user.id = :userId AND v.make = :marca")
+    @Query("SELECT v FROM Vehicle v WHERE v.user.id = :userId AND v.make = :marca")
     List<Vehicle> findByUserIdAndMarca(@Param("userId") Long userId,
                                        @Param("marca") String marca);
 
+    /**
+     * Buscar vehículo por ID y verificar que pertenece al usuario.
+     * Previene ataques IDOR (Insecure Direct Object Reference).
+     */
+    Optional<Vehicle> findByIdAndUserId(Long id, Long userId);
+
+    /**
+     * Buscar vehículo por placa y verificar que pertenece al usuario.
+     */
+    Optional<Vehicle> findByLicensePlateAndUserId(String licensePlate, Long userId);
+
+    /**
+     * Verificar si existe una placa para un usuario específico.
+     * Permite que diferentes usuarios tengan la misma placa.
+     */
+    boolean existsByLicensePlateAndUserId(String licensePlate, Long userId);
+
+    /**
+     * Buscar vehículos por marca, filtrados por usuario.
+     */
+    @Query("SELECT v FROM Vehicle v WHERE v.make = :make AND v.userId = :userId")
+    List<Vehicle> findByMakeAndUserId(@Param("make") String make, @Param("userId") Long userId);
+
+    /**
+     * Buscar vehículos por modelo, filtrados por usuario.
+     */
+    @Query("SELECT v FROM Vehicle v WHERE v.model = :model AND v.userId = :userId")
+    List<Vehicle> findByModelAndUserId(@Param("model") String model, @Param("userId") Long userId);
+
+    /**
+     * Buscar vehículos por año, filtrados por usuario.
+     */
+    @Query("SELECT v FROM Vehicle v WHERE v.year = :year AND v.userId = :userId")
+    List<Vehicle> findByYearAndUserId(@Param("year") Integer year, @Param("userId") Long userId);
+
+    /**
+     * Buscar vehículos por rango de años, filtrados por usuario.
+     */
+    @Query("SELECT v FROM Vehicle v WHERE v.year BETWEEN :yearStart AND :yearEnd AND v.userId = :userId")
+    List<Vehicle> findByYearRangeAndUserId(
+            @Param("yearStart") Integer yearStart,
+            @Param("yearEnd") Integer yearEnd,
+            @Param("userId") Long userId
+    );
 
 }

@@ -5,33 +5,45 @@ import com.keepup.vehicle.dto.VehicleResponse;
 
 import java.util.List;
 
-
+/**
+ * Interfaz del servicio de vehículos.
+ * Todas las operaciones están restringidas al usuario autenticado.
+ */
 public interface VehicleService {
 
+    // Crear vehículo para el usuario autenticado
+    VehicleResponse create(VehicleRequest request, Long authenticatedUserId);
 
-    VehicleResponse create(VehicleRequest request);
+    // Obtener vehículo por ID (solo si pertenece al usuario autenticado)
+    VehicleResponse getById(Long id, Long authenticatedUserId);
 
-    VehicleResponse getById(Long id);
+    // Obtener todos los vehículos del usuario autenticado
+    List<VehicleResponse> getAll(Long authenticatedUserId);
 
-    List<VehicleResponse> getAll();
+    // Obtener vehículo por placa (solo si pertenece al usuario autenticado)
+    VehicleResponse getByLicensePlate(String licensePlate, Long authenticatedUserId);
 
-    List<VehicleResponse> getByUserId(Long userId);
+    // Obtener vehículos por marca (solo del usuario autenticado)
+    List<VehicleResponse> getByMake(String make, Long authenticatedUserId);
 
-    VehicleResponse getByLicensePlate(String licensePlate);
+    // Obtener vehículos por modelo (solo del usuario autenticado)
+    List<VehicleResponse> getByModel(String model, Long authenticatedUserId);
 
-    List<VehicleResponse> getByMake(String make);
+    // Obtener vehículos por año (solo del usuario autenticado)
+    List<VehicleResponse> getByYear(Integer year, Long authenticatedUserId);
 
-    List<VehicleResponse> getByModel(String model);
+    // Obtener vehículos por rango de años (solo del usuario autenticado)
+    List<VehicleResponse> getByYearRange(Integer yearStart, Integer yearEnd, Long authenticatedUserId);
 
-    List<VehicleResponse> getByYear(Integer year);
+    // Actualizar vehículo (solo si pertenece al usuario autenticado)
+    VehicleResponse update(Long id, VehicleRequest request, Long authenticatedUserId);
 
-    List<VehicleResponse> getByYearRange(Integer yearStart, Integer yearEnd);
+    // Eliminar vehículo (solo si pertenece al usuario autenticado)
+    void delete(Long id, Long authenticatedUserId);
 
-    VehicleResponse update(Long id, VehicleRequest request);
+    // Contar vehículos del usuario autenticado
+    long countVehicles(Long authenticatedUserId);
 
-    void delete(Long id);
-
-    long countByUserId(Long userId);
-
-    boolean existsByLicensePlate(String licensePlate);
+    // Verificar si existe placa (solo entre vehículos del usuario autenticado)
+    boolean existsByLicensePlate(String licensePlate, Long authenticatedUserId);
 }
