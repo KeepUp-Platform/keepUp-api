@@ -1,11 +1,17 @@
 package com.keepup.vehicle.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vehicles")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vehicle {
 
 
