@@ -1,5 +1,6 @@
 package com.keepup.vehicle.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
