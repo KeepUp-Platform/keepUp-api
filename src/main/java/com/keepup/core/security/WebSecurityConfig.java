@@ -16,6 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration; // <--- IMPORTAR
+import org.springframework.web.cors.CorsConfigurationSource; // <--- IMPORTAR
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource; // <--- IMPORTAR
+
+import java.util.List; // <--- IMPORTAR
 
 @Configuration
 @EnableWebSecurity
@@ -26,9 +31,12 @@ public class WebSecurityConfig {
     private final UserRepository userRepository;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Deshabilitar CSRF para APIs RESTful
+                // 1. ACTIVAR CORS AQUÍ
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // Deshabilitar CSRF
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // Reglas de autorización
@@ -43,21 +51,39 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // 1. BEAN ESENCIAL: UserDetailsService
-    // Le dice a Spring cómo buscar un usuario en la BD (usando tu UserRepository)
+    // 2. DEFINIR LA CONFIGURACIÓN CORS GLOBAL
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Permitir SOLO tu frontend
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+
+        // Permitir métodos
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Permitir cabeceras (Authorization es vital para el JWT)
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+
+        // Permitir credenciales
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + username));
     }
 
-    // 2. BEAN ESENCIAL: AuthenticationProvider
-    // Une el UserDetailsService con el PasswordEncoder
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder()); // Usa el encoder de abajo
+        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 

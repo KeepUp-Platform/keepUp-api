@@ -1,5 +1,6 @@
 package com.keepup.vehicle.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.keepup.vehicle.enums.VehicleType;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // Genera constructor sin parámetros (requerido para deserialización JSON)
 public class VehicleRequest {
 
+    @JsonProperty("licensePlate")
     // Validación: No puede ser nulo, vacío o solo espacios en blanco
     @NotBlank(message = "License plate is required")
     // Validación: Longitud entre 5 y 10 caracteres
@@ -50,7 +52,7 @@ public class VehicleRequest {
     @Size(max = 30, message = "Color must not exceed 30 characters")
     private String color; // Color del vehículo (opcional)
 
-
+    @JsonProperty("vehicleType")
     @NotNull(message = "Vehicle type is required")
     private VehicleType vehicleType;
 

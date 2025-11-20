@@ -46,7 +46,7 @@ public class Vehicle {
     private String color;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(name = "type", nullable = false, length = 20)
     private VehicleType vehicleType;
 
 
